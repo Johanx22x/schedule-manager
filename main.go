@@ -112,7 +112,15 @@ func init() {
 func showCourses() {
     // Iterate over the folders into the directory DIR.
     for _, semester := range getFolders(DIR) {
+        // Check if the folder starts with ".".
+        if semester[0] == '.' {
+            continue 
+        }
         for _, course := range getFolders(DIR + "/" + semester) {
+            // Check if the folder starts with ".".
+            if course[0] == '.' {
+                continue 
+            }
             fmt.Println(course)
         }
     }
@@ -132,6 +140,10 @@ func getFolders(dir string) []string {
 
     // Iterate over the files into the directory dir.
     for _, file := range files {
+        // Check if the file name starts with ".".
+        if file.Name()[0] == '.' {
+            continue 
+        }
         // If the file is a directory, add its name to the slice folders.
         if file.IsDir() {
             folders = append(folders, file.Name())
